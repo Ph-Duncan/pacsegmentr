@@ -1,8 +1,10 @@
 Package: pacsegmentr
-Title: Demographic Categorization Tools for ParticipACTION Segmentation Strategy
+Title: Categorization Tools for ParticipACTION Segmentation Strategy
 Version: 0.1.0
-Authors@R: person("Markus Duncan", email = "mduncan at participaction.com", role = c("aut", "cre"))
-Description: Tools for standardizing demographic variables across surveys with varied encoding approaches, facilitating consistent segmentation of key demographic groups.
+Authors@R: person("Markus", "Duncan", email = "mduncan@participaction.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9190-7147"))
+Description: Tools for standardizing demographic variables across surveys with 
+	varied encoding approaches, facilitating consistent segmentation of key 
+	demographic groups used in ParticipACTION research and evaluation.
 License: MIT
 Encoding: UTF-8
 LazyData: true
@@ -13,3 +15,5 @@ Imports:
     stringr,
     tibble,
     tidyr
+Suggests:
+	questionr
