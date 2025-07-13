@@ -41,7 +41,7 @@ categ_age_groups <- function(data, age_group_col, output_col = "demographics_age
           data[[output_col]][i] <- labels$older
         }
       } else {
-        if (grepl("75|80|85|\+|older", val, ignore.case = TRUE)) {
+        if (grepl("75|80|85|older", val, ignore.case = TRUE)) {
           data[[output_col]][i] <- labels$older
         } else {
           data[[output_col]][i] <- labels$prefer_not_to_say
