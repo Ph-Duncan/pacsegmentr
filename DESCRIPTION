@@ -1,8 +1,8 @@
 Package: pacsegmentr
 Title: Demographic Categorization Tools for ParticipACTION Segmentation Strategy
 Version: 0.1.0
-Authors@R: person("Markus", "Duncan", email = "mduncan@participaction.com", role = c("aut", "cre"))
-Description: Tools for standardizing demographic variables across surveys with different data encoding, enabling consistent segmentation with equity-oriented defaults and inclusive language.
+Authors@R: person("Markus Duncan", email = "mduncan at participaction.com", role = c("aut", "cre"))
+Description: Tools for standardizing demographic variables across surveys with varied encoding approaches, facilitating consistent segmentation of key demographic groups.
 License: MIT
 Encoding: UTF-8
 LazyData: true

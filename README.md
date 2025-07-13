@@ -7,13 +7,12 @@
 
 # pacsegmentr
 
-**pacsegmentr** is a flexible and inclusive R package designed to standardize demographic categorization across surveys and datasets. It provides tools for consistent recoding of race/ethncity, income, disability, newcomer status, and more aligning with ParticipACTION's segmentation strategy. Thus enabling clean, comparable and rapid analysis of self-report demographic data. Functions will be updated to reflect ongoing updates in the segmentation strategy.
+**pacsegmentr** is a purpose built R package designed to standardize demographic categorization across surveys and datasets. It provides tools for consistent and rapid recoding of race/ethncity, income, disability, newcomer status, and more aligning with ParticipACTION's segmentation strategy despite inconsistent data collection, sources, and variable encoding. Functions must be maintained to align with ongoing updates to the segmentation strategy.
 
 
 ## Installation
 
 ```r
-# After publishing to GitHub:
 # remotes::install_github("Ph-Duncan/pacsegmentr")
 ```
 
@@ -46,4 +45,4 @@ Markus Duncan
 MIT
 
 ## Additional Recommended Packages:
-questionr is highly recommended for wrangling "select all that apply"-style questions where data are stored in a single variable separated by a character. Arranging data in this format is a pre-requisite for several functions in **pacsegmentr**
+**questionr** (https://cran.r-project.org/web/packages/questionr/index.html) is highly recommended for wrangling "select all that apply"-style questions where data are stored in a single variable separated by a character. Arranging data in this format is a pre-requisite for several functions in **pacsegmentr**.
