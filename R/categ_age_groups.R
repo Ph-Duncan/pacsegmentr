@@ -1,0 +1,53 @@
+#' Categorize Age Groups from Multiple Choice
+#'
+#' Categorizes respondents into children & youth, adult, older adult, or prefer not to say
+#' from a multiple-choice age group variable.
+#'
+#' @param data A data frame
+#' @param age_group_col Column name with age group responses
+#' @param output_col Output column name
+#' @param mapping Optional mapping table of raw to code
+#' @param labels Named list of output labels
+#' @return Data frame with categorized age group
+#' @export
+categ_age_groups <- function(data, age_group_col, output_col = "demographics_age_group",
+                             mapping = NULL,
+                             labels = list(
+                               youth = "children & youth",
+                               adult = "adult",
+                               older = "older adult",
+                               prefer_not_to_say = "prefer not to say",
+                               missing = NA)) {
+  if (is.null(mapping)) {
+    mapping <- get_default_mapping("age_groups")
+  }
+  data[[output_col]] <- NA
+  for (i in seq_len(nrow(data))) {
+    val <- data[[age_group_col]][i]
+    if (is.na(val) || val == "") {
+      data[[output_col]][i] <- labels$missing
+    } else {
+      match_raw <- mapping$raw == val
+      match_code <- suppressWarnings(as.numeric(val)) == mapping$code
+      idx <- which(match_raw | match_code)
+      if (length(idx) == 1) {
+        if (idx == 8) {
+          data[[output_col]][i] <- labels$prefer_not_to_say
+        } else if (idx == 1) {
+          data[[output_col]][i] <- labels$youth
+        } else if (idx %in% 2:6) {
+          data[[output_col]][i] <- labels$adult
+        } else if (idx >= 7) {
+          data[[output_col]][i] <- labels$older
+        }
+      } else {
+        if (grepl("75|80|85|\+|older", val, ignore.case = TRUE)) {
+          data[[output_col]][i] <- labels$older
+        } else {
+          data[[output_col]][i] <- labels$prefer_not_to_say
+        }
+      }
+    }
+  }
+  return(data)
+}
