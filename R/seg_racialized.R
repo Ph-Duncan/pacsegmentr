@@ -1,42 +1,44 @@
-
-#' Segment respondents by racialized identity
+#' Segments Respondents as Racialized, Not Racialized, or Prefer Not to Answer
 #'
-#' Classifies respondents based on racialized identity using a select-all-that-apply structure.
-#' Supports prioritization via override, secondary, and tertiary columns.
+#' Converts a set of columns representing SATA (select-all-that-apply) question data corresponding 
+#' to race/ethnicity into a single variable of MECs (mutually exclusive category) using the 
+#' \code{sata_to_mecp()} function. This wrapper is designed for implementing ParticipACTION's demographic 
+#' segmentation strategy for classifying respondents as Racialized or Not-Racialized.
 #'
 #' @param data A data frame.
-#' @param racialized_cols Character vector of columns indicating racialized identities.
-#' @param not_racialized_cols Optional character vector indicating non-racialized selections.
-#' @param prefer_not_to_say_cols Optional character vector for "prefer not to say".
-#' @param labels A named list with labels: `racialized`, `not_racialized`, `prefer_not_to_say`, `missing`.
-#' @param coding A named list with `true` and `false` values for interpreting responses.
+#' @param racialized_cols Columns indicating racialized identity. Supports tidyselect syntax.
+#' @param not_racialized_cols Optional. Columns indicating not racialized.
+#' @param prefer_not_cols Optional. Columns indicating "prefer not to answer".
+#' @param racialized_label Label for respondents identified as racialized.
+#' @param not_racialized_label Label for respondents not identified as racialized.
+#' @param prefer_not_label Label for respondents who prefer not to answer.
+#' @param ... Additional arguments passed to \code{sata_to_mecp()}, such as \code{coding} or \code{missing_label}.
 #'
-#' @return A character vector with the segmentation result.
+#' @return A character vector of mutually exclusive classifications.
 #' @export
 seg_racialized <- function(data,
                            racialized_cols,
                            not_racialized_cols = NULL,
-                           prefer_not_to_say_cols = NULL,
-                           labels = list(
-                             racialized = "racialized",
-                             not_racialized = "not racialized",
-                             prefer_not_to_say = "prefer not to say",
-                             missing = NA_character_
-                           ),
-                           coding = list(
-                             true = c("yes", "1", "true"),
-                             false = c("no", "0", "false", "")
-                           )) {
-  sata_to_mec(
+                           prefer_not_cols = NULL,
+                           racialized_label = "Racialized",
+                           not_racialized_label = "Not Racialized",
+                           prefer_not_label = "Prefer Not to Answer",
+                           ...) {
+  #use a tidyverse approach to allow users to specify columns in a variety of ways
+  racialized <- tidyselect::eval_select(rlang::enquo(racialized_cols), data = data) |> names()
+  not_racialized <- tidyselect::eval_select(rlang::enquo(not_racialized_cols), data = data) |> names()
+  prefer_not <- tidyselect::eval_select(rlang::enquo(prefer_not_cols), data = data) |> names()
+  
+  #coerce inputs into a named list for sata_to_mecp
+  groups <- list()
+  if (length(racialized) > 0) groups[[racialized_label]] <- racialized
+  if (length(not_racialized) > 0) groups[[not_racialized_label]] <- not_racialized
+  if (length(prefer_not) > 0) groups[[prefer_not_label]] <- prefer_not
+  
+  #submit inputs to sata_to_mecp
+  sata_to_mecp(
     data = data,
-    override_cols = if (!is.null(prefer_not_to_say_cols)) {
-      list(!!labels$prefer_not_to_say := prefer_not_to_say_cols)
-    } else NULL,
-    secondary_cols = if (!is.null(not_racialized_cols)) {
-      list(!!labels$not_racialized := not_racialized_cols)
-    } else NULL,
-    tertiary_cols = list(!!labels$racialized := racialized_cols),
-    coding = coding,
-    missing_label = labels$missing
+    groups = groups,
+    ...
   )
 }

@@ -2,35 +2,42 @@
 % Please edit documentation in R/seg_racialized.R
 \name{seg_racialized}
 \alias{seg_racialized}
-\title{Segment respondents by racialized identity}
+\title{Segments Respondents as Racialized, Not Racialized, or Prefer Not to Answer}
 \usage{
 seg_racialized(
   data,
   racialized_cols,
   not_racialized_cols = NULL,
-  prefer_not_to_say_cols = NULL,
-  labels = list(racialized = "racialized", not_racialized = "not racialized",
-    prefer_not_to_say = "prefer not to say", missing = NA_character_),
-  coding = list(true = c("yes", "1", "true"), false = c("no", "0", "false", ""))
+  prefer_not_cols = NULL,
+  racialized_label = "Racialized",
+  not_racialized_label = "Not Racialized",
+  prefer_not_label = "Prefer Not to Answer",
+  ...
 )
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{racialized_cols}{Character vector of columns indicating racialized identities.}
+\item{racialized_cols}{Columns indicating racialized identity. Supports tidyselect syntax.}
 
-\item{not_racialized_cols}{Optional character vector indicating non-racialized selections.}
+\item{not_racialized_cols}{Optional. Columns indicating not racialized.}
 
-\item{prefer_not_to_say_cols}{Optional character vector for "prefer not to say".}
+\item{prefer_not_cols}{Optional. Columns indicating "prefer not to answer".}
 
-\item{labels}{A named list with labels: `racialized`, `not_racialized`, `prefer_not_to_say`, `missing`.}
+\item{racialized_label}{Label for respondents identified as racialized.}
 
-\item{coding}{A named list with `true` and `false` values for interpreting responses.}
+\item{not_racialized_label}{Label for respondents not identified as racialized.}
+
+\item{prefer_not_label}{Label for respondents who prefer not to answer.}
+
+\item{...}{Additional arguments passed to \code{sata_to_mecp()}, such as \code{coding} or \code{missing_label}.}
 }
 \value{
-A character vector with the segmentation result.
+A character vector of mutually exclusive classifications.
 }
 \description{
-Classifies respondents based on racialized identity using a select-all-that-apply structure.
-Supports prioritization via override, secondary, and tertiary columns.
+Converts a set of columns representing SATA (select-all-that-apply) question data corresponding 
+to race/ethnicity into a single variable of MECs (mutually exclusive category) using the 
+\code{sata_to_mecp()} function. This wrapper is designed for implementing ParticipACTION's demographic 
+segmentation strategy for classifying respondents as Racialized or Not-Racialized.
 }

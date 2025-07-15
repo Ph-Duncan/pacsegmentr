@@ -2,35 +2,42 @@
 % Please edit documentation in R/seg_indigenous.R
 \name{seg_indigenous}
 \alias{seg_indigenous}
-\title{Segment respondents by Indigenous identity}
+\title{Segments Respondents as Indigenous, Not Indigenous, or Prefer Not to Answer}
 \usage{
 seg_indigenous(
   data,
   indigenous_cols,
   not_indigenous_cols = NULL,
-  prefer_not_to_say_cols = NULL,
-  labels = list(indigenous = "Indigenous", not_indigenous = "non-Indigenous",
-    prefer_not_to_say = "prefer not to say", missing = NA_character_),
-  coding = list(true = c("yes", "1", "true"), false = c("no", "0", "false", ""))
+  prefer_not_cols = NULL,
+  indigenous_label = "Indigenous",
+  not_indigenous_label = "Not Indigenous",
+  prefer_not_label = "Prefer Not to Answer",
+  ...
 )
 }
 \arguments{
 \item{data}{A data frame.}
 
-\item{indigenous_cols}{Character vector of columns indicating Indigenous identities.}
+\item{indigenous_cols}{Columns indicating Indigenous identity. Supports tidyselect syntax.}
 
-\item{not_indigenous_cols}{Optional character vector indicating non-Indigenous selections.}
+\item{not_indigenous_cols}{Optional. Columns indicating not Indigenous.}
 
-\item{prefer_not_to_say_cols}{Optional character vector for "prefer not to say".}
+\item{prefer_not_cols}{Optional. Columns indicating "prefer not to answer".}
 
-\item{labels}{A named list with labels: `indigenous`, `not_indigenous`, `prefer_not_to_say`, `missing`.}
+\item{indigenous_label}{Label for respondents identified as Indigenous.}
 
-\item{coding}{A named list with `true` and `false` values for interpreting responses.}
+\item{not_indigenous_label}{Label for respondents not identified as Indigenous.}
+
+\item{prefer_not_label}{Label for respondents who prefer not to answer.}
+
+\item{...}{Additional arguments passed to \code{sata_to_mecp()}, such as \code{coding} or \code{missing_label}.}
 }
 \value{
-A character vector with the segmentation result.
+A character vector of mutually exclusive classifications.
 }
 \description{
-Classifies respondents based on Indigenous identity using a select-all-that-apply structure.
-Uses explicit override, secondary, and tertiary column prioritization.
+Converts a set of columns representing SATA (select-all-that-apply) question data corresponding 
+to Indigenous identities into a single variable of MECs (mutually exclusive category) using the 
+\code{sata_to_mecp()} function. This wrapper is designed for implementing ParticipACTION's demographic 
+segmentation strategy for classifying respondents as Indigenous vs Not Indigenous.
 }
