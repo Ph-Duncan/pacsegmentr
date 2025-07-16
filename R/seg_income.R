@@ -1,6 +1,6 @@
-#' Categorize Income
+#' Segmentation by Income
 #'
-#' Categorizes respondents as lower or higher income based on thresholds and optional urban/rural classification.
+#' Segments respondents as lower or higher income based on thresholds and optional urban/rural classification.
 #'
 #' @param data A data frame
 #' @param income_col Name of the income column (numeric or recoded)
@@ -10,7 +10,7 @@
 #' @param labels Named list of category labels
 #' @return Data frame with new income group column
 #' @export
-categ_income <- function(data, income_col, location_col = NULL,
+seg_income <- function(data, income_col, location_col = NULL,
                          output_col = "demographics_income",
                          threshold = list(urban = 8, rural = 7),
                          labels = list(

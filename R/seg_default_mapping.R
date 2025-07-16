@@ -5,7 +5,7 @@
 #' @param key Optional name of a specific mapping table to retrieve.
 #' @return A list of mapping tables, or a single table if a key is specified.
 #' @export
-get_default_mapping <- function(key = NULL) {
+seg_default_mapping <- function(key = NULL) {
   maps <- list(
     income = tibble::tibble(
       raw = c("Less than $20,000", "$20,000 to $24,999", "$25,000 to $29,999",

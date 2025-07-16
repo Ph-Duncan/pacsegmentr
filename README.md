@@ -18,22 +18,20 @@
 
 ## Available Functions
 
-- `categ_racialized()`
-- `categ_indigenous()`
-- `categ_disability()`
-- `categ_income()`
-- `categ_gender()`
-- `categ_trans_status()`
-- `categ_sexual_orientation()`
-- `categ_slgbtq()`
-- `categ_age_numeric()`
-- `categ_age_groups()`
-- `categ_newcomer()`
-- `categ_fsa_urban()`
 - `recode_income()`
-- `get_default_mapping()`
+- `sata_to_mecp()`
+- `sc_recode()`
+- `seg_age_groups()`
+- `seg_age_numeric()`
+- `seg_default_mapping()`
+- `seg_disability()`
+- `seg_fsa_urban()`
+- `seg_income()`
+- `seg_indigenous()`
+- `seg_racialized()`
+- `seg_slgbtq()`
 
-See `?get_default_mapping()` for information on modifiable default maps.
+See `?seg_default_mapping()` for information on modifiable default maps.
 
 ## Author
 
